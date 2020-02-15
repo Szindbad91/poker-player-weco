@@ -15,7 +15,7 @@ class Player
 
     public function betRequest($game_state)
     {
-
+        $this->game_state=$game_state;
         $this->ownPlayer=$game_state->players[$game_state->in_action];
 
         $cards=array_merge($this->ownPlayer->hole_cards,$game_state->community_cards);
@@ -36,7 +36,8 @@ class Player
             $bid=0;
         }
         if($next <= 1){
-            if($this->ownPlayer->stack<300){
+            $myPain=$this->getMyPain();
+            if($this->ownPlayer->stack<$myPain){
                 return 0;
             }
             if ($sum > $game_state->small_blind * 5 ) {
@@ -49,6 +50,38 @@ class Player
         }
 
         return  (int)round($bid);
+
+    }
+
+    public function getPlayerNr(){
+        $nr=0;
+        foreach ($this->game_state->players as $player) {
+            if($player->status=='active'){
+                $nr++;
+            }
+        }
+        return $nr;
+    }
+
+    public function getMyPain(){
+       $pNr= $this->getPlayerNr();
+       $ret=300;
+       switch ($pNr) {
+           case 1:
+            $ret=0;
+             break;
+           case 2:
+            $ret=300;
+             break;
+           case 3:
+            $ret=550;
+             break; 
+           case 4:
+            $ret=800;
+             break; 
+       }
+
+       return $ret;
 
     }
 
