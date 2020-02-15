@@ -14,10 +14,7 @@ class Player
 
     public function betRequest($game_state)
     {
-        if(!is_object($game_state)){
-            $game_state=  json_decode($game_state);
-        }
-      
+     
         $this->ownPlayer=$game_state->players[$game_state->in_action];
   
         $hand = new Hand($this->ownPlayer->hole_cards);
