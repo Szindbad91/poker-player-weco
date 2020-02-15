@@ -28,8 +28,23 @@ class CardCombinationHandler
 
     public function getCombination()
     {
-        
+
         return 'nothing';
+    }
+
+    public function isPair()
+    {
+
+    }
+
+    public function isDrill()
+    {
+
+    }
+
+    public function isFullHouse()
+    {
+
     }
 
 }
