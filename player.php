@@ -1,6 +1,7 @@
 <?php
 require_once ('RoundChecker.php');
 require_once ('Hand.php');
+require_once ('CardCombinationHandler.php');
 
 class Player
 {
@@ -14,23 +15,22 @@ class Player
 
     public function betRequest($game_state)
     {
-     
+
         $this->ownPlayer=$game_state->players[$game_state->in_action];
-  
+
         $hand = new Hand($this->ownPlayer->hole_cards);
-      
+
         $next=$hand->checkHand();
-        
+
         if($next==0){
             return $game_state->current_buy_in;
         }
         else  if($next==1){
             return $game_state->pot*2;
-            
         }
-        
+
         return 0;
-      
+
     }
 
     public function showdown($game_state)
