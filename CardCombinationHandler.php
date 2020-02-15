@@ -55,6 +55,10 @@ class CardCombinationHandler
             }
 
         }
+        if (!$this->withHand())
+        {
+            return '';
+        }
         if ($poker) {
             return 'poker';
         } else if ($pairs && $drill) {
@@ -70,14 +74,12 @@ class CardCombinationHandler
     }
     public function withHand()
     {
-        for ($i = 0; $i < sizeof($this->cards); $i++) {
+        for ($i = 0; $i < 2; $i++) {
             $count = 0;
             for ($j = 0; $j < sizeof($this->cards); $j++) {
                 if ($i !== $j) {
                     if ($this->cards[$i]->rank == $this->cards[$j]->rank) {
-                        if ($i < 2) {
                             return true;
-                        }
                     }
                 }
             }
