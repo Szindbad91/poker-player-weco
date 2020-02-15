@@ -26,8 +26,8 @@ class Player
         if($bid>=$game_state->stack){
             $bid=$game_state->stack;
         }
-        
-        return $bid;
+
+        return  (int)round($bid);
 
     }
 

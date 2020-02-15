@@ -23,26 +23,34 @@ class Hand
 
     public function checkHand()
     {
-        $ret=0;
+        $ret = 0;
         $combName = $this->ch->getCombination();
         switch ($combName) {
             case 'pair':
                 $ret = 1;
                 break;
-            case 'two_pair':
-                $ret = 1;
+            case 'fullhouse':
+                $ret = 7;
                 break;
-            case 'nothing': 
-                if(count($this->hands)==2){
+            case 'drill':
+                $ret = 3;
+                break;
+            case 'two_pair':
+                $ret = 2;
+                break;
+            case 'poker':
+                $ret = 20;
+                break;
+            case 'nothing':
+                if (count($this->hands) == 2) {
                     if (array_key_exists($this->hands[0]->rank, $this->goodCards) && array_key_exists($this->hands[1]->rank, $this->goodCards)) {
-                        $ret =100 ;
+                        $ret = 100;
                     } else if (array_key_exists($this->hands[0]->rank, $this->goodCards) || array_key_exists($this->hands[1]->rank, $this->goodCards)) {
                         $ret = 1;
                     }
+                } else {
+                    $ret = 0;
                 }
-                else{
-                    $ret=0;
-                } 
                 break;
         }
 
