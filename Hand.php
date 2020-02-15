@@ -13,6 +13,7 @@ class Hand
         'K' => 1,
         'Q' => 1,
         'J' => 1,
+        '10'=>1
     ];
 
     public function __construct($cards)
@@ -42,16 +43,17 @@ class Hand
                 $ret = 20;
                 break;
             case 'nothing':
-                if (count($this->hands) == 2) {
-                    if (array_key_exists($this->hands[0]->rank, $this->goodCards) && array_key_exists($this->hands[1]->rank, $this->goodCards)) {
-                        $ret = 100;
-                    } else if (array_key_exists($this->hands[0]->rank, $this->goodCards) || array_key_exists($this->hands[1]->rank, $this->goodCards)) {
-                        $ret = 1;
-                    }
-                } else {
-                    $ret = 0;
-                }
-                break;
+                // if (count($this->hands) == 2) {
+                //     if (array_key_exists($this->hands[0]->rank, $this->goodCards) && array_key_exists($this->hands[1]->rank, $this->goodCards)) {
+                //         $ret = 100;
+                //     } else if (array_key_exists($this->hands[0]->rank, $this->goodCards) || array_key_exists($this->hands[1]->rank, $this->goodCards)) {
+                //         $ret = 1;
+                //     }
+                // } else {
+                //     $ret = 0;
+                // }
+                $ret=1;
+            break;
         }
 
         return $ret;
