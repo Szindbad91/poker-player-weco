@@ -16,9 +16,9 @@ class CardCombinationHandler
      * @param $c6
      * @param $c7
      */
-    public function __construct($c1, $c2, $c3 = null, $c4 = null, $c5 = null, $c6 = null, $c7 = null)
+    public function __construct($cards)
     {
-        $this->cards=func_get_args();
+        $this->cards=$cards;
     }
 
     public function getCombination()

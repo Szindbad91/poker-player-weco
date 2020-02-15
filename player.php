@@ -7,7 +7,7 @@ class Player
 {
     const VERSION = "Default PHP folding player";
     private $roundChecker;
-
+    private $ownPlayer;
     public function __construct()
     {
         $this->roundChecker = new RoundChecker();
@@ -18,18 +18,16 @@ class Player
 
         $this->ownPlayer=$game_state->players[$game_state->in_action];
 
-        $hand = new Hand($this->ownPlayer->hole_cards);
+        $cards=array_merge($this->ownPlayer->hole_cards,$game_state->community_cards);
+        $hand = new Hand($cards);
 
         $next=$hand->checkHand();
-
-        if($next==0){
-            return $game_state->current_buy_in;
+        $bid=$game_state->current_buy_in*$next; 
+        if($bid>=$game_state->stack){
+            $bid=$game_state->stack;
         }
-        else  if($next==1){
-            return $game_state->pot*2;
-        }
-
-        return 0;
+        
+        return $bid;
 
     }
 

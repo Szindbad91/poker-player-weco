@@ -7,37 +7,45 @@ class Hand
     public $card1suit;
     public $card2rank;
     public $card2suit;
-
-    public $cards=[
-        'A'=>1,
-        'K'=>1,
-        'Q'=>1,
-        'J'=>1,
+    private $hand;
+    public $goodCards = [
+        'A' => 1,
+        'K' => 1,
+        'Q' => 1,
+        'J' => 1,
     ];
 
     public function __construct($cards)
     {
-        $this->card1rank = $cards[0]->rank;
-        $this->card1suit = $cards[0]->suit;
-        $this->card2rank = $cards[1]->rank;
-        $this->card2suit = $cards[1]->suit;
+        $this->hands = $cards;
+        $this->ch = new CardCombinationHandler($this->hands);
     }
 
     public function checkHand()
     {
         $ret=0;
-        if ($this->card1rank == $this->card2rank) {
-            $ret=0;
+        $combName = $this->ch->getCombination();
+        switch ($combName) {
+            case 'pair':
+                $ret = 1;
+                break;
+            case 'two_pair':
+                $ret = 1;
+                break;
+            case 'nothing': 
+                if(count($this->hands)==2){
+                    if (array_key_exists($this->hands[0]->rank, $this->goodCards) && array_key_exists($this->hands[1]->rank, $this->goodCards)) {
+                        $ret =100 ;
+                    } else if (array_key_exists($this->hands[0]->rank, $this->goodCards) || array_key_exists($this->hands[1]->rank, $this->goodCards)) {
+                        $ret = 1;
+                    }
+                }
+                else{
+                    $ret=0;
+                } 
+                break;
         }
-        else if(array_key_exists($this->card1rank,$this->cards) && array_key_exists($this->card2rank,$this->cards)){
-            $ret=1;
-        }
-        else if(array_key_exists($this->card1rank,$this->cards) || array_key_exists($this->card2rank,$this->cards)){
-            $ret=0;
-        }
-        else{
-            $ret=-1;
-        }
+
         return $ret;
     }
 }
