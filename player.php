@@ -16,12 +16,12 @@ class Player
     {
         $ownPlayer = null;
         foreach ($game_state->players as $player) {
-            if (isset($player->hole_cards)) {
+            if (isset($player->hole_cards) && !empty($player->hole_cards)) {
                 $ownPlayer = $player;
             }
         }
         $hand = new Hand($ownPlayer->whole_cards);
-
+        if($hand)
         return $game_state->current_buy_in * $hand->getMultiplierByHand();
     }
 
