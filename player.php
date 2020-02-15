@@ -17,12 +17,23 @@ class Player
         $ownPlayer = null;
         foreach ($game_state->players as $player) {
             if (isset($player->hole_cards) && !empty($player->hole_cards)) {
-                $ownPlayer = $player;
+                $this->ownPlayer = $player;
             }
         }
-        $hand = new Hand($ownPlayer->whole_cards);
-        if($hand)
-        return $game_state->current_buy_in * $hand->getMultiplierByHand();
+        $hand = new Hand($this->ownPlayer->whole_cards);
+      
+        $next=$hand->checkHand();
+        
+        if($next==0){
+            return $game_state->current_buy_in;
+        }
+        else  if($next==1){
+            return $this->ownPlayer->stack;
+            
+        }
+        
+        return 0;
+      
     }
 
     public function showdown($game_state)
