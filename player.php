@@ -22,9 +22,9 @@ class Player
         $hand = new Hand($cards);
 
         $next=$hand->checkHand();
-        $bid=$game_state->current_buy_in*$next; 
-        if($bid>=$game_state->stack){
-            $bid=$game_state->stack;
+        $bid=$game_state->current_buy_in*$next;
+        if($bid>=$this->ownPlayer->stack){
+            $bid=$this->ownPlayer->stack;
         }
 
         return  (int)round($bid);
