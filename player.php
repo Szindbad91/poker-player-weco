@@ -14,12 +14,9 @@ class Player
 
     public function betRequest($game_state)
     {
-        $ownPlayer = null;
-        foreach ($game_state->players as $player) {
-            if (isset($player->hole_cards) && !empty($player->hole_cards)) {
-                $this->ownPlayer = $player;
-            }
-        }
+      
+        $this->ownPlayer=$game_state->players[$game_state->in_action];
+  
         $hand = new Hand($this->ownPlayer->whole_cards);
       
         $next=$hand->checkHand();
