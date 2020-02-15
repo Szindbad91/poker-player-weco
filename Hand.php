@@ -45,7 +45,7 @@ class Hand
             case 'nothing':
                 if (count($this->hands) == 2) {
                     if (array_key_exists($this->hands[0]->rank, $this->goodCards) && array_key_exists($this->hands[1]->rank, $this->goodCards)) {
-                        $ret = 100;
+                        $ret = 1;
                     } else if (array_key_exists($this->hands[0]->rank, $this->goodCards) || array_key_exists($this->hands[1]->rank, $this->goodCards)) {
                         $ret = 1;
                     }
