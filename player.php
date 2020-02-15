@@ -22,7 +22,7 @@ class Player
         $hand = new Hand($cards);
 
         $next=$hand->checkHand();
-        $sum=($game_state->current_buy_in - $this->ownPlayer->bet);
+        $sum=$game_state->current_buy_in - $this->ownPlayer->bet;
         if($next>0){
             if($next==1){
                 $bid=$sum;
@@ -36,7 +36,7 @@ class Player
             $bid=0;
         }
 
-        if ($game_state->current_buy_in - $this->ownPlayer->bet > $game_state->small_blind * 5 && $next < 1) {
+        if ($sum > $game_state->small_blind * 5 && $next <= 1) {
             return 0;
         }
         if($bid>=$this->ownPlayer->stack){
