@@ -18,7 +18,7 @@ class CardCombinationHandler
      */
     public function __construct($c1, $c2, $c3 = null, $c4 = null, $c5 = null, $c6 = null, $c7 = null)
     {
-        $this->cards=func_get_args(); 
+        $this->cards=func_get_args();
     }
 
     public function getCombination()
@@ -27,9 +27,23 @@ class CardCombinationHandler
         return 'nothing';
     }
 
-    public function isPair()
+    public function getPairCount()
     {
+        $deck = [];
+        for ($i = 2; $i < sizeof($this->cards); $i++) {
+            $deck[] = $this->cards[$i];
+        }
+        return $this->CheckPair($this->cards[0], $deck) + $this->CheckPair($this->cards[1], $deck);
+    }
 
+    public function CheckPair($card, $deck)
+    {
+        foreach ($deck as $dcard) {
+            if ($dcard->rank == $card->rank) {
+                return 1;
+            }
+        }
+        return 0;
     }
 
     public function isDrill()
