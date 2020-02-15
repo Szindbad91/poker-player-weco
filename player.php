@@ -17,7 +17,7 @@ class Player
       
         $this->ownPlayer=$game_state->players[$game_state->in_action];
   
-        $hand = new Hand($this->ownPlayer->whole_cards);
+        $hand = new Hand($this->ownPlayer->hole_cards);
       
         $next=$hand->checkHand();
         
