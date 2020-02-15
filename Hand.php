@@ -30,7 +30,7 @@ class Hand
         switch ($combName) {
             case 'pair':
                 if(count($this->hands) == 2){
-                    $ret = 20;
+                    $ret = 500;
                 }
                 else{
                     $ret = 1;
