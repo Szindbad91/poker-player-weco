@@ -53,20 +53,19 @@ class CardCombinationHandler
             } else if ($count == 3) {
                 $poker++;
             }
-            if ($poker) {
-                return 'poker';
-            } else if ($pairs && $drill) {
-                return 'fullhouse';
-            } else if ($drill) {
-                return 'drill';
-            } else if ($pairs >= 4) {
-                return 'two_pair';
-            } else if ($pairs) {
-                return 'pair';
-            }
-            return '';
-        }
 
-        return $counts;
+        }
+        if ($poker) {
+            return 'poker';
+        } else if ($pairs && $drill) {
+            return 'fullhouse';
+        } else if ($drill) {
+            return 'drill';
+        } else if ($pairs >= 4) {
+            return 'two_pair';
+        } else if ($pairs) {
+            return 'pair';
+        }
+        return '';
     }
 }
