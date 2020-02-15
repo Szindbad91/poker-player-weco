@@ -49,7 +49,7 @@ class Hand
                     // } else if (array_key_exists($this->hands[0]->rank, $this->goodCards) || array_key_exists($this->hands[1]->rank, $this->goodCards)) {
                     //     $ret = 1;
                     // }
-                    if (!array_key_exists($this->hands[0]->rank, $this->goodCards)  && !array_key_exists($this->hands[1]->rank, $this->goodCards)) {
+                    if (!array_key_exists($this->hands[0]->rank, $this->goodCards)  || !array_key_exists($this->hands[1]->rank, $this->goodCards)) {
                             $ret = 0;
                         }
                         else{
