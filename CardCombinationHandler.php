@@ -23,54 +23,50 @@ class CardCombinationHandler
 
     public function getCombination()
     {
-        if ($this->getPairCount() == 1) {
-            return 'pair';
-        } else if ($this->getPairCount() == 2) {
-            return 'two_pair';
-        }
-        if ($this->isDrill()) {
-            return 'drill';
+        if ($this->checkMultipleOptions()) {
+            return $this->checkMultipleOptions();
         }
         return 'nothing';
     }
 
-    public function getPairCount()
-    {
-        $deck = [];
-        for ($i = 2; $i < sizeof($this->cards); $i++) {
-            $deck[] = $this->cards[$i];
-        }
-        return $this->CheckPair($this->cards[0], $deck) + $this->CheckPair($this->cards[1], $deck);
-    }
 
-    public function CheckPair($card, $deck, $count = false)
+    public function checkMultipleOptions()
     {
-        $c = 0;
-        foreach ($deck as $dcard) {
-            if ($dcard->rank == $card->rank) {
-                if ($count) {
-                    $c++;
-                } else {
-                    return 1;
+        $pairs = 0;
+        $drill = 0;
+        $poker = 0;
+
+        $counts = [];
+        for ($i = 0; $i < sizeof($this->cards); $i++) {
+            $count = 0;
+            for ($j = 0; $j < sizeof($this->cards); $j++) {
+                if ($i !== $j) {
+                    if ($this->cards[$i]->rank == $this->cards[$j]->rank) {
+                        $count ++;
+                    }
                 }
-
             }
+            if ($count == 1) {
+                $pairs++;
+            } else if ($count == 2) {
+                $drill++;
+            } else if ($count == 3) {
+                $poker++;
+            }
+            if ($poker) {
+                return 'poker';
+            } else if ($pairs && $drill) {
+                return 'fullhouse';
+            } else if ($drill) {
+                return 'drill';
+            } else if ($pairs >= 4) {
+                return 'two_pair';
+            } else if ($pairs) {
+                return 'pair';
+            }
+            return '';
         }
-        return $c;
+
+        return $counts;
     }
-
-    public function isDrill()
-    {
-        $deck = [];
-        for ($i = 2; $i < sizeof($this->cards); $i++) {
-            $deck[] = $this->cards[$i];
-        }
-        return $this->getPairCount($this->cards[0], $deck, true) == 2 || $this->getPairCount($this->cards[1], $deck, true);
-    }
-
-    public function isFullHouse()
-    {
-
-    }
-
 }
