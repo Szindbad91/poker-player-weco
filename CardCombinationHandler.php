@@ -82,5 +82,6 @@ class CardCombinationHandler
                 }
             }
         }
+        return false;
     }
 }
