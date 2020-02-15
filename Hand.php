@@ -28,7 +28,12 @@ class Hand
         $combName = $this->ch->getCombination();
         switch ($combName) {
             case 'pair':
-                $ret = 1;
+                if(count($this->hands) == 2){
+                    $ret = 20;
+                }
+                else{
+                    $ret = 1;
+                }
                 break;
             case 'fullhouse':
                 $ret = 7;
