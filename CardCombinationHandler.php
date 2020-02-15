@@ -23,7 +23,11 @@ class CardCombinationHandler
 
     public function getCombination()
     {
-
+        if ($this->getPairCount() == 1) {
+            return 'pair';
+        } else if ($this->getPairCount() == 2) {
+            return 'two_pair';
+        }
         return 'nothing';
     }
 
