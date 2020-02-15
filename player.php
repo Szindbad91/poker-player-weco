@@ -35,12 +35,15 @@ class Player
         else{
             $bid=0;
         }
-        if($this->ownPlayer->stack<300 && $next <= 1){
-            return 0;
+        if($next <= 1){
+            if($this->ownPlayer->stack<300){
+                return 0;
+            }
+            if ($sum > $game_state->small_blind * 5 ) {
+                return 0;
+            }
         }
-        if ($sum > $game_state->small_blind * 5 && $next <= 1) {
-            return 0;
-        }
+    
         if($bid>=$this->ownPlayer->stack){
             $bid=$this->ownPlayer->stack;
         }
