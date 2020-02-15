@@ -23,41 +23,49 @@ class CardCombinationHandler
 
     public function getCombination()
     {
-        if ($this->getPairCount() == 1) {
-            return 'pair';
-        } else if ($this->getPairCount() == 2) {
-            return 'two_pair';
+        if ($this->checkMultipleOptions()) {
+            return $this->checkMultipleOptions();
         }
         return 'nothing';
     }
 
-    public function getPairCount()
-    {
-        $deck = [];
-        for ($i = 2; $i < sizeof($this->cards); $i++) {
-            $deck[] = $this->cards[$i];
-        }
-        return $this->CheckPair($this->cards[0], $deck) + $this->CheckPair($this->cards[1], $deck);
-    }
 
-    public function CheckPair($card, $deck)
+    public function checkMultipleOptions()
     {
-        foreach ($deck as $dcard) {
-            if ($dcard->rank == $card->rank) {
-                return 1;
+        $pairs = 0;
+        $drill = 0;
+        $poker = 0;
+
+        $counts = [];
+        for ($i = 0; $i < sizeof($this->cards); $i++) {
+            $count = 0;
+            for ($j = 0; $j < sizeof($this->cards); $j++) {
+                if ($i !== $j) {
+                    if ($this->cards[$i]->rank == $this->cards[$j]->rank) {
+                        $count ++;
+                    }
+                }
             }
+            if ($count == 1) {
+                $pairs++;
+            } else if ($count == 2) {
+                $drill++;
+            } else if ($count == 3) {
+                $poker++;
+            }
+
         }
-        return 0;
+        if ($poker) {
+            return 'poker';
+        } else if ($pairs && $drill) {
+            return 'fullhouse';
+        } else if ($drill) {
+            return 'drill';
+        } else if ($pairs >= 4) {
+            return 'two_pair';
+        } else if ($pairs) {
+            return 'pair';
+        }
+        return '';
     }
-
-    public function isDrill()
-    {
-
-    }
-
-    public function isFullHouse()
-    {
-
-    }
-
 }
