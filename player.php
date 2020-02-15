@@ -28,14 +28,17 @@ class Player
                 $bid=$sum;
             }
             else{
-                $bid=$sum+$game_state->minimum_rise*$next;
+                $bid=$sum+$game_state->minimum_raise*$next;
             }
-            
+
         }
         else{
             $bid=0;
         }
-      
+
+        if ($game_state->current_buy_in - $this->ownPlayer->bet > $game_state->small_blind * 5 && $next < 1) {
+            return 0;
+        }
         if($bid>=$this->ownPlayer->stack){
             $bid=$this->ownPlayer->stack;
         }
