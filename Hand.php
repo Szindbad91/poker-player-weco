@@ -33,17 +33,17 @@ class Hand
                     $ret = 20;
                 }
                 else{
-                    $ret = 1;
+                    $ret = 2;
                 }
                 break;
             case 'fullhouse':
-                $ret = 7;
+                $ret = 20;
                 break;
             case 'drill':
-                $ret = 3;
+                $ret = 10;
                 break;
             case 'two_pair':
-                $ret = 2;
+                $ret = 5;
                 break;
             case 'poker':
                 $ret = 20;
