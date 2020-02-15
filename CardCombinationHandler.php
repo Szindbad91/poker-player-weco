@@ -28,6 +28,9 @@ class CardCombinationHandler
         } else if ($this->getPairCount() == 2) {
             return 'two_pair';
         }
+        if ($this->isDrill()) {
+            return 'drill';
+        }
         return 'nothing';
     }
 
@@ -40,19 +43,29 @@ class CardCombinationHandler
         return $this->CheckPair($this->cards[0], $deck) + $this->CheckPair($this->cards[1], $deck);
     }
 
-    public function CheckPair($card, $deck)
+    public function CheckPair($card, $deck, $count = false)
     {
+        $c = 0;
         foreach ($deck as $dcard) {
             if ($dcard->rank == $card->rank) {
-                return 1;
+                if ($count) {
+                    $c++;
+                } else {
+                    return 1;
+                }
+
             }
         }
-        return 0;
+        return $c;
     }
 
     public function isDrill()
     {
-
+        $deck = [];
+        for ($i = 2; $i < sizeof($this->cards); $i++) {
+            $deck[] = $this->cards[$i];
+        }
+        return $this->getPairCount($this->cards[0], $deck, true) == 2 || $this->getPairCount($this->cards[1], $deck, true);
     }
 
     public function isFullHouse()
