@@ -28,7 +28,7 @@ class Player
             return $game_state->current_buy_in;
         }
         else  if($next==1){
-            return $this->ownPlayer->stack;
+            return $game_state->pot*2;
             
         }
         
